@@ -25,6 +25,7 @@ def countnumofreviews(filename):
         			number_of_reviews += 1
         	
         return number_of_reviews
+        
 #to find the number of reviews in each class
 def classnum(filename,classname):
 	num = 0
@@ -41,7 +42,6 @@ def wordcountclass(filename,classname):
 	wordnum = 0
 	with open(filename) as datafile:
    		for line in datafile:
-  
    			if line[-2:-1] == classname:
    				wordnum += len(line.split()) - 1
    				

@@ -16,16 +16,16 @@ def countwords(filename):
         f.close()
     	return count
     	
+    	
+def countnumofreviews(filename):
+	number_of_reviews = 0
+	with open(filename) as datafile:
+   		for line in datafile:
+        		if line.strip():
+        			number_of_reviews += 1
+        	
+        return number_of_reviews
+    	
 voc_num=countwords('../stage3code/vocabulary.txt')
-
-
-#datafile = open("../stage2code/removed", "r")
-
-number_of_reviews = 0
-
-with open("../stage2code /removed") as datafile:
-    for line in datafile:
-       if line.strip():
-          number_of_reviews += 1
-
+number_of_reviews = countnumofreviews("../stage2code /removed")
 print 'number of number_of_reviews found %d' % number_of_reviews

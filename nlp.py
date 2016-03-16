@@ -27,9 +27,8 @@ rem_file = open("removed", "w+")
 
 #remove words
 for l in review_file:
-	for word in stop_words:
-		
-		l = re.sub(r'([^A-Za-z]|^)'+word+'[^A-Za-z]', " ", l)
+	for word in stop_words:		
+		l = re.sub(r'([^A-Za-z]|^)'+word+'([^A-Za-z]|$)', " ", l)
 	
 	rem_file.write(l)
 
@@ -39,7 +38,10 @@ lines = []
 #removing characters other than alphabets
 rem_file.seek(0,0)
 for l in rem_file:
-	l = re.sub(r'[^A-Za-z]', " ", l)
+	l = re.sub(r"[^A-Za-z\+\-\']", " ", l)	#to add space instead of specail characters except apostrophe
+	l = re.sub(r"[\']", "", l)		#no space is added when apostrophe is removed
+	l = re.sub(r'[\+]', "+"+"\n", l)		#add new line
+	l = re.sub(r'[\-]', "-"+"\n", l)		#add new line
 	lines.append(l)
 
 #need to remove single letter words-not done yet!

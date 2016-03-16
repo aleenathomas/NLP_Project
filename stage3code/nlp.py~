@@ -3,7 +3,7 @@
 import re
 import collections
 
-rem_file = open("removed", "r")
+rem_file = open("../removed", "r")
 
 #additional-make a list of words from the file
 rem_file.seek(0,0)
@@ -14,7 +14,7 @@ words = contents.split()
 count = collections.Counter()
 for word in words:
 	count[word] = count[word] + 1
-
+print count
 #write into vocabulary file those words that have count>=2
 vocab = open("vocabulary.txt","w")
 for word in count:

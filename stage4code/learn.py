@@ -2,7 +2,11 @@
 #training the classifier
 
 import collections
+import pickle
+import math
 
+vocabulary="../stage3code/vocabulary.txt"
+removed="../stage2code /removed"
 
 #function to count the number of words in a file(vocabulary)
 def countwords(filename):
@@ -17,6 +21,7 @@ def countwords(filename):
     	return count
     	
     	
+#function to count the number of reviews
 def countnumofreviews(filename):
 	number_of_reviews = 0
 	with open(filename) as datafile:
@@ -70,18 +75,33 @@ def class_prior(filename,classname):
 				
 #to find conditional probabilities
 def class_cond(filename,word,classname):
-	voc_num=countwords('../stage3code/vocabulary.txt')
+	voc_num=countwords(vocabulary)
 	num = wordcount(filename,word,classname)
 	den = wordcountclass(filename,classname)
 	cond_prob = float(num + 1)/ ( den + voc_num )
 	return cond_prob
 		    	
 
+#make a list of all words in vocabulary
+f=open(vocabulary,"r")
+contents=f.read()
+words = contents.split('\n')
+f.close()
 
-# With smoothing, P(word | +) = no. of times word has occured in positively classified sentences + 1 / (total number of words in positively classified sentences + countwords("vocabulary.txt"))
-#prior_pos = class_prior("../stage2code /removed","+")
-#cond_prob = class_cond("../stage2code /removed","good","+")
-#print(prior_pos)
-#print(cond_prob)
 
-# P(word | -) = no. of times word has occured in negatively classified sentences + 1 / (total number of words in negatively classified sentences + countwords("vocabulary.txt"))
+#keyword is a dict indexed by each word in the vocabulary
+keyword = collections.Counter()
+
+#store the conditionalprob in dictionary 
+#it stores a list of 2 elements: log(P(word|+)) and log(P(word|-))
+
+for word in words:
+	pos_class_prob_log = math.log(class_cond(removed,word,'+'),2)
+	neg_class_prob_log = math.log(class_cond(removed,word,'-'),2)
+	keyword[word] = [pos_class_prob_log,neg_class_prob_log]
+
+#save the dict of learned probabilities in the file classifier.pickle
+
+with open('classifier.pickle', 'wb') as handle:
+	pickle.dump(keyword, handle)
+f.close()

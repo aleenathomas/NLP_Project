@@ -2,17 +2,20 @@
 #currently working with input as a text file and writing to another file!!!
 import re
 import collections
+import os
 #remove stop words
 #convert all text to lowercase
 #drop characters other than alphabets
 
 
 #convert all to lowercase
-review_file = open("../data.txt","r+")
+review_file = open("../data.txt","r")
+tempfile = open("temp.txt","r+")
+
 lower_lines = [line.lower() for line in review_file]
-review_file.seek(0,0)
-review_file.writelines(lower_lines)
-review_file.seek(0,0)
+
+tempfile.writelines(lower_lines)
+tempfile.seek(0,0)
 
 #removing stop words
 sw_file = open("../stop_words","r")
@@ -26,7 +29,7 @@ stop_words = [word.strip('\n') for word in stop_words]
 rem_file = open("removed", "w+")
 
 #remove words
-for l in review_file:
+for l in tempfile:
 	for word in stop_words:		
 		l = re.sub(r'([^A-Za-z]|^)'+word+'([^A-Za-z]|$)', " ", l)
 	
@@ -51,3 +54,5 @@ for line in lines:
 	rem_file.write(line)
 
 rem_file.close()
+tempfile.close()
+os.remove("temp.txt")

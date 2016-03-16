@@ -8,7 +8,7 @@ import collections
 
 
 #convert all to lowercase
-review_file = open("data.txt","r+")
+review_file = open("../data.txt","r+")
 lower_lines = [line.lower() for line in review_file]
 review_file.seek(0,0)
 review_file.writelines(lower_lines)

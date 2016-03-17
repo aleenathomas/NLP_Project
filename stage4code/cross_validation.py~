@@ -67,7 +67,7 @@ for i in range(10):
 	testset.close()	
 
 	# code to train "train.txt"
-	code_to_remove_stop_words.remove_stopwords("train.txt")
+	code_to_remove_stop_words.remove_stopwords("train1.txt")
 	code_to_build_vocabulary.build_vocab("removed")
 	learn.learn("removed", "vocabulary.txt")
 
@@ -101,7 +101,7 @@ for i in range(10):
 			fp += 1	
 		else: 
 			fn +=1	
-		print (str(actual)+" " str(prediction))
+		print (str(actual)+" " +str(prediction))
 					
 	accuracy = float(tp + tn)/float(tp + tn + fp + fn)		
 	print accuracy	

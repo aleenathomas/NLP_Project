@@ -33,14 +33,22 @@ negtotal = learn.classnum(filename, "-")
 
 datafile = open(filename,'r')
 lines = datafile.readlines()
+pstart = 0
+pend = postotal/10
+nstart = find_starting("-")
+nend = nstart + negtotal/10
 
-for i in range(10):
+pbreak=0
+nbreak=0
+pj = 0
+nj = 0
 
+for k in range(10):
+	'''
 	testset = open("test.txt","w+")
 	trainset = open("train.txt","w+")
 
-	pstart = 0
-	pend = postotal/10
+	
 
 	for index in range(pstart, pend+1):
 		testset.write(lines[index])
@@ -51,8 +59,7 @@ for i in range(10):
 	pstart = pstart + postotal/10
 	pend = pend + postotal/10
 
-	nstart = find_starting("-")
-	nend = nstart + negtotal/10
+	
 
 	for index in range(nstart, nend+1):
 		testset.write(lines[index])
@@ -62,12 +69,56 @@ for i in range(10):
 		trainset.write(lines[index])		
 	nstart = nstart + negtotal/10
 	nend = nend + negtotal/10
+	'''
 
+        #alg to test mixed data set
+
+	testset = open("test.txt","w+")
+	trainset = open("train.txt","w+")
+        if pbreak != 0:
+		for index in range(0, pbreak+1):
+			if findclass(lines[index]) == 1:
+				trainset.write(lines[index])
+	i = 0	
+	pj = pbreak
+	while i < postotal/10:
+		while (pj<postotal+negtotal):
+			if findclass(lines[pj]) == 1:
+				testset.write(lines[pj])
+				pj = pj+1
+				break
+			pj = pj+1
+		i = i+1
+	pbreak = pj
+	for index in range(pbreak + 1, postotal+negtotal):
+		if findclass(lines[index]) == 1:
+			trainset.write(lines[index])
+	#positives added
+	if nbreak != 0:
+		for index in range(0, nbreak+1):
+			if findclass(lines[index]) == 0:
+				trainset.write(lines[index])
+	i = 0
+	nj = nbreak
+	while i < negtotal/10:
+		while (nj<postotal+negtotal):
+			if findclass(lines[nj]) == 0:
+				testset.write(lines[nj])
+				nj = nj+1
+				break
+			nj = nj+1
+		i = i+1
+	nbreak = nj
+	for index in range(nbreak + 1, postotal+negtotal):
+		if findclass(lines[index]) == 0:
+			trainset.write(lines[index])
+	#negatives added
+	##end
 
 	testset.close()	
 
 	# code to train "train.txt"
-	code_to_remove_stop_words.remove_stopwords("train1.txt")
+	code_to_remove_stop_words.remove_stopwords("train.txt")
 	code_to_build_vocabulary.build_vocab("removed")
 	learn.learn("removed", "vocabulary.txt")
 
@@ -101,11 +152,12 @@ for i in range(10):
 			fp += 1	
 		else: 
 			fn +=1	
-		print (str(actual)+" " +str(prediction))
+		#print (str(actual)+" " +str(prediction))
 					
 	accuracy = float(tp + tn)/float(tp + tn + fp + fn)		
 	print accuracy	
-
+	final_acc = final_acc + accuracy
 
 	trainset.close()
 	f.close()	
+print "final accuracy = " + str(final_acc/10)

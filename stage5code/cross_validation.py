@@ -11,7 +11,7 @@ def find_starting(classname):
 def findclass(line):
 	if line[-2:-1] == "+":
 		return 1
-	else
+	else:
 		return 0
 			
 filename = "../stage2code /removed"
@@ -26,7 +26,42 @@ trainset = open("train.txt","r+")
 
 start = 0
 end = postotal/10
-
+#alg to test mixed data set
+for index in range(0, pbreak+1):
+	if findclass(lines[index]) == 1:
+		trainset.write(lines[index])
+i = 0
+j = 1
+while i < postotal/10
+	while (j<postotal+negtotal):
+		if findclass(lines[pbreak+j]) == 1:
+			testset.write(lines[pbreak+j])
+			break
+		j = j+1
+	i = i+1
+pbreak = pbreak + j
+for index in range(pbreak + 1, postotal+negtotal):
+	if findclass(lines[index]) == 1:
+		trainset.write(lines[index])
+#positives added
+for index in range(0, nbreak+1):
+	if findclass(lines[index]) == 1:
+		trainset.write(lines[index])
+i = 0
+j = 1
+while i < postotal/10
+	while (j<postotal+negtotal):
+		if findclass(lines[nbreak+j]) == 1:
+			testset.write(lines[nbreak+j])
+			break
+		j = j+1
+	i = i+1
+nbreak = nbreak + j
+for index in range(nbreak + 1, postotal+negtotal):
+	if findclass(lines[index]) == 1:
+		trainset.write(lines[index])
+#negatives added
+##end
 for index in range(start, end+1):
 	testset.write(lines[index])
 for index in range(start+1):
@@ -63,16 +98,16 @@ for line in lines:
 	post_neg = findposterior(line, "-")	#find the posterior prob of negative
 	if post_pos > post_neg:			#predict
 		prediction = 1
-	else 
+	else :
 		prediction = 0
 	actual = findclass(line)	
 	if  actual == 1 and prediction == 1:
 		tp += 1	
-	else if  actual == 0 and prediction == 0:
+	elif  actual == 0 and prediction == 0:
 		tn += 1
-	else if  actual == 0 and prediction == 1:
+	elif  actual == 0 and prediction == 1:
 		fp += 1	
-	else 
+	else :
 		fn +=1		
 accuracy = float(tp + tn)/float(tp + tn + fp + fn)		
 print accuracy	

@@ -55,4 +55,4 @@ for line in lines:
 
 rem_file.close()
 tempfile.close()
-os.remove("temp.txt")
+#os.remove("temp.txt")

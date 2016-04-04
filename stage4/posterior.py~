@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+
+def findclasscond(line,category,filename):
+	words=line.split()
+	prob=1
+	for word in words:
+		prob*= class_cond(filename,word,category)
+
+def findposterior(line,category,filename):
+	classconditionalprob = findclasscond(line,category)
+	posterior = classconditionalprob * class_prior(filename,category)
+	return posterior

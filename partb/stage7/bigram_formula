@@ -1,0 +1,1 @@
+P(sentence|class) = product of P(word-1,word | class) = count(word-1,word)+1 / count(word-1) + size of vocabulary

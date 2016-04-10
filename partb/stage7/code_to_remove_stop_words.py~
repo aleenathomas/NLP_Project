@@ -19,7 +19,7 @@ def remove_stopwords(filename):
 	tempfile.seek(0,0)
 
 	#removing stop words
-	sw_file = open("../../stop_words","r")
+	sw_file = open("../stop_words","r")
 	stop_words = sw_file.readlines()
 	sw_file.close()
 

@@ -1,7 +1,7 @@
 import learn_classifier
 import code_to_remove_stop_words
 import code_to_build_vocabulary
-
+import bigrams
 # divide the set into 10
 # using classnum, find the no. of reviews in pos and neg
 
@@ -85,7 +85,11 @@ for k in range(10):
 	code_to_remove_stop_words.remove_stopwords("train.txt")
 	code_to_build_vocabulary.build_vocab("removed")
 	#call create_bigrams
+	
+
+	bigrams.create_bigrams("removed")
 	learn_classifier.learn("removed", "new_vocab.txt")
+
 
 	# code to test the sentences in "test.txt"
 	tp = 0 

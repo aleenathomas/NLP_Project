@@ -123,3 +123,4 @@ def learn(filename,vocfilename):
 learn(removed,vocabulary)
 #changed wordcount function,class_cond and learn function to make the algo work for bigrams
 #used the formula P(sentence|class) = product of P(word-1,word | class) = count(word-1,word in class)+1 / count(word-1 in class) + size of vocabulary
+#removed wordcountclass function

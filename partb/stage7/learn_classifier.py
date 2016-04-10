@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #training the classifier
-
+from itertools import islice
 import collections
 import pickle
 import math

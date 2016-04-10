@@ -24,7 +24,7 @@ def findposterior(line,category,filename):
 	posterior = classconditionalprob * learn_classifier.class_prior(filename,category)
 	return posterior		
 			
-filename = "../stage2/removed"
+filename = "../stage6/removed"
 postotal = learn_classifier.classnum(filename, "+")
 negtotal = learn_classifier.classnum(filename, "-")
 
@@ -85,7 +85,7 @@ for k in range(10):
 	code_to_remove_stop_words.remove_stopwords("train.txt")
 	code_to_build_vocabulary.build_vocab("removed")
 	#call create_bigrams
-	learn_classifier.learn("removed", "vocabulary.txt")
+	learn_classifier.learn("removed", "new_vocab.txt")
 
 	# code to test the sentences in "test.txt"
 	tp = 0 

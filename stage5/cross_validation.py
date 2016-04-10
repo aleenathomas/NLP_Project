@@ -35,11 +35,11 @@ pbreak=0
 nbreak=0
 final_acc = 0
 for k in range(10):
-        #alg to test mixed data set
+	#alg to test mixed data set
 
 	testset = open("test.txt","w+")
 	trainset = open("train.txt","w+")
-        if pbreak != 0:
+	if pbreak != 0:
 		for index in range(0, pbreak+1):
 			if findclass(lines[index]) == 1:
 				trainset.write(lines[index])

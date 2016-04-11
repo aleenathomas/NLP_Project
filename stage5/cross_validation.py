@@ -1,5 +1,4 @@
 import learn_classifier
-import code_to_remove_stop_words
 import code_to_build_vocabulary
 
 # divide the set into 10
@@ -34,17 +33,23 @@ lines = datafile.readlines()
 pbreak=0
 nbreak=0
 final_acc = 0
+tr=["f1","f2","f3","f4","f5","f6","f7","f8","f9","f10"]
+te=["t1","t2","t3","t4","t5","t6","t7","t8","t9","t10"]
 for k in range(10):
-	#alg to test mixed data set
-
-	testset = open("test.txt","w+")
-	trainset = open("train.txt","w+")
-	if pbreak != 0:
+        #alg to test mixed data set
+	
+	testset = open(te[k],"w+")
+	trainset = open(tr[k],"w+")
+        if pbreak != 0:
 		for index in range(0, pbreak+1):
 			if findclass(lines[index]) == 1:
 				trainset.write(lines[index])
 	i = 0	
-	pj = pbreak
+	if pbreak == 0:
+		pj = pbreak
+	else:
+		pj = pbreak + 1
+	
 	while i < postotal/10:
 		while (pj<postotal+negtotal):
 			if findclass(lines[pj]) == 1:
@@ -53,7 +58,8 @@ for k in range(10):
 				break
 			pj = pj+1
 		i = i+1
-	pbreak = pj
+	pbreak = pj - 1
+	
 	for index in range(pbreak + 1, postotal+negtotal):
 		if findclass(lines[index]) == 1:
 			trainset.write(lines[index])
@@ -63,7 +69,11 @@ for k in range(10):
 			if findclass(lines[index]) == 0:
 				trainset.write(lines[index])
 	i = 0
-	nj = nbreak
+	if nbreak == 0:
+		nj = nbreak
+	else:
+		nj = nbreak + 1
+	
 	while i < negtotal/10:
 		while (nj<postotal+negtotal):
 			if findclass(lines[nj]) == 0:
@@ -72,7 +82,8 @@ for k in range(10):
 				break
 			nj = nj+1
 		i = i+1
-	nbreak = nj
+	nbreak = nj - 1
+	
 	for index in range(nbreak + 1, postotal+negtotal):
 		if findclass(lines[index]) == 0:
 			trainset.write(lines[index])
@@ -82,9 +93,8 @@ for k in range(10):
 	testset.close()	
 
 	# code to train "train.txt"
-	code_to_remove_stop_words.remove_stopwords("train.txt")
-	code_to_build_vocabulary.build_vocab("removed")
-	learn_classifier.learn("removed", "vocabulary.txt")
+	code_to_build_vocabulary.build_vocab(tr[k])
+	learn_classifier.learn(tr[k], "vocabulary.txt")
 
 	# code to test the sentences in "test.txt"
 	tp = 0 
@@ -97,12 +107,12 @@ for k in range(10):
 
 	#print len(lines)
 
-	with open("test.txt") as f:
+	with open(te[k]) as f:
 	    content = f.readlines()
 
 	for line in content:	
-		post_pos = findposterior(line, "+", "removed")	#find the posterior prob of positive 
-		post_neg = findposterior(line, "-", "removed")	#find the posterior prob of negative
+		post_pos = findposterior(line, "+", tr[k])	#find the posterior prob of positive 
+		post_neg = findposterior(line, "-", tr[k])	#find the posterior prob of negative
 		if post_pos > post_neg:			#predict
 			prediction = 1
 		else: 

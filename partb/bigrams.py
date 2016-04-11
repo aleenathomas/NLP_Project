@@ -30,4 +30,3 @@ def create_bigrams(filename):
 create_bigrams("removed")
 
 
-

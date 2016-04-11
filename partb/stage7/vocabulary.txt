@@ -1,15 +1,21 @@
 sleek
+per
 issues
 certainly
 backup
+dissatisfied
 sound
 very
 dell
 worst
+month
+condition
 cool
 impressive
+did
 standards
 large
+item
 small
 portable
 elegant
@@ -39,8 +45,11 @@ working
 camera
 memory
 more
+company
 phone
 excellent
+must
+customer
 pendrives
 worth
 tag
@@ -52,6 +61,7 @@ high
 something
 purchased
 needs
+defective
 machine
 till
 lamp
@@ -66,11 +76,13 @@ purchase
 light
 operate
 cute
+shoes
 office
 satisfied
 looks
 features
 perfect
+monitor
 amazing
 better
 good
@@ -84,11 +96,11 @@ heavy
 weight
 product
 used
-expect
 really
 bag
 quality
 looking
+print
 got
 pathetic
 quite
@@ -109,11 +121,14 @@ too
 perfectly
 gives
 loved
+third
 fabulous
+video
 function
 comfortable
 genuine
 built
+convenient
 -
 recommended
 materials
@@ -122,11 +137,13 @@ performance
 price
 regular
 device
+extremely
+class
 sturdy
 mobile
-average
 drive
 definitely
+impression
 cheap
 shoe
 fine
@@ -140,6 +157,7 @@ twice
 bad
 capacity
 wow
+please
 superb
 enough
 across
@@ -148,7 +166,9 @@ affordable
 screen
 wastage
 useless
+received
 liked
+simple
 expectations
 packaging
 simply
@@ -156,6 +176,7 @@ expensive
 awsome
 decent
 tiny
+mark
 much
 expected
 waste
@@ -167,15 +188,21 @@ budget
 value
 air
 properly
+disappointing
 damaged
 suggest
 week
 finish
+average
+viewing
 purpose
+angle
 totally
+lower
 spent
 without
 model
+audio
 less
 powerbank
 money
@@ -183,6 +210,7 @@ laptop
 touch
 love
 speed
+disappointed
 handy
 battery
 attractive
@@ -191,28 +219,35 @@ usage
 has
 smart
 build
+real
 usable
 big
 dryer
 using
 bit
 moreover
+loss
 like
 lost
 serves
+usb
 stylish
 works
 poor
 deal
 table
+delivered
+everything
 worthy
 super
 ok
+install
 months
 range
 nothing
 os
 image
+within
 doesnt
 been
 impressed
@@ -224,6 +259,7 @@ lot
 recommendable
 happy
 buy
+complete
 brand
 recommend
 delivery
@@ -234,6 +270,8 @@ below
 problem
 pendrive
 display
+expect
+again
 compared
 no
 book
@@ -254,6 +292,7 @@ happy product
 + recommend
 date +
 across os
+- quite
 affordable price
 + loved
 dont buy
@@ -262,6 +301,7 @@ pendrive not
 not working
 product -
 very bad
+much not
 transfer speed
 + quite
 best quality
@@ -282,6 +322,8 @@ very low
 comfortable +
 not worthy
 decent looking
+product using
+product useless
 bag good
 product quality
 worthy product
@@ -289,25 +331,38 @@ worthy product
 - product
 product best
 good screen
++ easy
 + build
 nothing great
 + perfect
 satisfied +
+bad bad
+working perfectly
+poor -
 + affordable
+- totally
 usable across
 good looking
 very good
+bad product
+certainly recommend
 fast +
+excellent service
 light weight
 delivery +
+great +
 stylish design
+dont waste
+good picture
 quality unbelievable
 battery life
 - not
 + impressive
+low quality
 dont twice
 awesome +
-reasonable price
+- speed
+working within
 not too
 + phone
 never buy
@@ -316,24 +371,31 @@ worth money
 best phone
 not great
 absolutely fantastic
+- quality
 value money
 + satisfied
 good pendrive
 speed +
+please dont
 product good
 easy operate
 those looking
+item -
 waste money
 carry +
 good performance
 quality product
 unbelievable price
 easy carry
+useless product
 really good
 + study
 working properly
+money time
 looking budget
+bad impression
 - nothing
+nothing -
 worth price
 product not
 working not
@@ -342,6 +404,8 @@ reliable +
 + happy
 - worst
 products +
+- cheap
+quality poor
 + totally
 worst product
 cheap best
@@ -350,6 +414,7 @@ quality +
 product price
 low price
 product +
+sound quality
 nice quality
 build quality
 amazing phone
@@ -359,51 +424,73 @@ awesome product
 + price
 never ever
 amazing +
+using months
 + great
+- poor
 too good
 + wow
+quality -
+excellent buy
 good price
 + product
 + light
 very reasonable
+recommend friends
+poor product
 very fast
 far +
++ real
 good product
 money +
 product very
 handy +
-- speed
+- highly
+reasonable price
 fine +
 - never
 buy +
 buy -
+- bad
+bad quality
 price range
+properly -
 + quick
+- really
+worst quality
 such low
 speed -
 product great
 + super
 not much
+install +
 + dont
+- such
 expected -
+product suggest
 + worth
+not very
+good packing
+hesitation +
 quality bag
 price very
 table lamp
 fully satisfied
 quite satisfied
 purpose +
+good condition
+products -
 buying +
 + certainly
+- pathetic
 satisfied -
 capacity -
 range +
 money -
 till date
 speed not
+- overall
 speed usable
 not good
-+ simply
 not recommended
 design +
 + best
@@ -412,38 +499,54 @@ lamp +
 wastage money
 slow -
 good quality
+friends buy
 great product
 + good
+not worth
 best price
 size +
 os +
 materials used
-bad product
+material very
 + pendrive
 much satisfied
+not comfortable
+bad -
+very cheap
+- too
 price +
 bag +
+quality not
 highly recommend
 + overall
 + packing
 great resolution
 + value
+cheap quality
+- please
 + really
+very very
 awesome pendrive
 product used
 very stylish
+picture quality
+- extremely
 bag awesome
+working fine
 recommend +
 ahead buy
 looks nice
 time -
 overall good
+bought -
 battery good
+third class
 without hesitation
 nice product
 smooth +
 no issues
 performance +
+comfortable -
 very happy
 + absolutely
 excellent +
@@ -459,16 +562,26 @@ sleek stylish
 built quality
 pendrive +
 very nice
+pathetic -
+ever bought
 product perfect
+easy install
+very worst
++ simply
+- waste
+looking good
 light +
 buy product
 finish +
 image quality
 guys dont
 very much
+very disappointing
+ever buy
 stopped working
 experience +
 good +
+speed very
 quality excellent
 worthy -
 poor quality
@@ -479,6 +592,7 @@ damaged product
 + working
 performance -
 design very
+- stopped
 + looking
 price awesome
 battery backup
@@ -495,5 +609,6 @@ great speed
 quality very
 + very
 + quality
+- useless
 worth buying
 + amazing

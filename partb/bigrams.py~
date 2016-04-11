@@ -14,7 +14,7 @@ def create_bigrams(filename):
 	#add bigrams with count>=3 to vocabulary
 	infile = open("vocabulary.txt","a+")
 	for word in bigrams:
-		if bigrams[word] >= 3:
+		if bigrams[word] >= 2:
 			infile.write(" ".join(word))
 			infile.write("\n")
 	#remove bigrams starting and ending with + or - from vocabulary

@@ -27,7 +27,4 @@ def create_bigrams(filename):
 	infile.close()
 	vocab.close()
 
-create_bigrams("removed")
-
-
-
+create_bigrams("../../stage2/removed")

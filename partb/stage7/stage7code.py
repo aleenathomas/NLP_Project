@@ -1,5 +1,4 @@
 import learn_classifier
-import code_to_remove_stop_words
 import code_to_build_vocabulary
 import bigrams
 # divide the set into 10
@@ -11,12 +10,50 @@ def findclass(line):
 		return 1
 	else:
 		return 0
+		
+#find the count of a particular word in a class
+def wordcount(filename,w1,w2,classname,bigram):
+    wordnum = 0
+    with open(filename) as datafile:
+           for line in datafile: 
+               if line[-2:-1] == classname:
+               		words = line.split()
+               		if(bigram == False):                       		
+                       		for w in words:
+                   			if w == w1:
+		               			wordnum += 1
+                	else:
+                   		for i in range(len(words)-1):
+                   			if w1==words[i] and w2 == words[i+1]:
+                   				wordnum += 1	                              		               
+    return wordnum
+    		
+def class_cond(filename,w1,w2,classname, vocfilename):
+    voc_num = learn_classifier.countwords(vocfilename)   
+    num = wordcount(filename,w1,w2,classname,True)
+    #wordcountclass function is not used here.
+    word = w1
+    den = wordcount(filename,w1,w2,classname,False)
+    #print "bigram = "+bigram
+    #print "num = "+str(num)
+    if num != 0:
+        cond_prob = float(num + 1)/ ( den + voc_num )
+    #else if the bigram is not present in the training set, then the corresponding unigram probabilities are found   
+    else:
+        voc_num = learn_classifier.countunigrams(vocfilename)   
+        num = wordcount(filename,w1,w2,classname,False)   
+        den = learn_classifier.wordcountclass(filename,classname)
+        cond_prob1 = float(num + 1)/ ( den + voc_num )
+        num = learn_classifier.wordcount(filename,w2,classname,False)       
+        cond_prob2 = float(num + 1)/ ( den + voc_num )
+        cond_prob = cond_prob1 * cond_prob2
+    return cond_prob
 
 def findclasscond(line,category,filename):
 	words=line.split()
 	prob=1
-	for word in words:
-		prob*= learn_classifier.class_cond(filename,word,category)
+	for i in range(len(words)-1):
+		prob*= class_cond(filename,words[i], words[i+1],category,"new_vocab.txt")
 	return prob
 
 def findposterior(line,category,filename):
@@ -24,7 +61,7 @@ def findposterior(line,category,filename):
 	posterior = classconditionalprob * learn_classifier.class_prior(filename,category)
 	return posterior		
 			
-filename = "../stage6/removed"
+filename = "../../stage2/removed"
 postotal = learn_classifier.classnum(filename, "+")
 negtotal = learn_classifier.classnum(filename, "-")
 
@@ -34,17 +71,23 @@ lines = datafile.readlines()
 pbreak=0
 nbreak=0
 final_acc = 0
+tr=["f1","f2","f3","f4","f5","f6","f7","f8","f9","f10"]
+te=["t1","t2","t3","t4","t5","t6","t7","t8","t9","t10"]
 for k in range(10):
         #alg to test mixed data set
-
-	testset = open("test.txt","w+")
-	trainset = open("train.txt","w+")
+	
+	testset = open(te[k],"w+")
+	trainset = open(tr[k],"w+")
         if pbreak != 0:
 		for index in range(0, pbreak+1):
 			if findclass(lines[index]) == 1:
 				trainset.write(lines[index])
 	i = 0	
-	pj = pbreak
+	if pbreak == 0:
+		pj = pbreak
+	else:
+		pj = pbreak + 1
+	
 	while i < postotal/10:
 		while (pj<postotal+negtotal):
 			if findclass(lines[pj]) == 1:
@@ -53,7 +96,8 @@ for k in range(10):
 				break
 			pj = pj+1
 		i = i+1
-	pbreak = pj
+	pbreak = pj - 1
+	
 	for index in range(pbreak + 1, postotal+negtotal):
 		if findclass(lines[index]) == 1:
 			trainset.write(lines[index])
@@ -63,7 +107,11 @@ for k in range(10):
 			if findclass(lines[index]) == 0:
 				trainset.write(lines[index])
 	i = 0
-	nj = nbreak
+	if nbreak == 0:
+		nj = nbreak
+	else:
+		nj = nbreak + 1
+	
 	while i < negtotal/10:
 		while (nj<postotal+negtotal):
 			if findclass(lines[nj]) == 0:
@@ -72,7 +120,8 @@ for k in range(10):
 				break
 			nj = nj+1
 		i = i+1
-	nbreak = nj
+	nbreak = nj - 1
+	
 	for index in range(nbreak + 1, postotal+negtotal):
 		if findclass(lines[index]) == 0:
 			trainset.write(lines[index])
@@ -82,14 +131,12 @@ for k in range(10):
 	testset.close()	
 
 	# code to train "train.txt"
-	code_to_remove_stop_words.remove_stopwords("train.txt")
-	code_to_build_vocabulary.build_vocab("removed")
+	code_to_build_vocabulary.build_vocab(tr[k])	
 	#call create_bigrams
 	
 
-	bigrams.create_bigrams("removed")
-	learn_classifier.learn("removed", "new_vocab.txt")
-
+	bigrams.create_bigrams(tr[k]) 		
+	learn_classifier.learn(tr[k], "new_vocab.txt") 
 
 	# code to test the sentences in "test.txt"
 	tp = 0 
@@ -102,17 +149,20 @@ for k in range(10):
 
 	#print len(lines)
 
-	with open("test.txt") as f:
+	with open(te[k]) as f: 
 	    content = f.readlines()
 
-	for line in content:	
-		post_pos = findposterior(line, "+", "removed")	#find the posterior prob of positive 
-		post_neg = findposterior(line, "-", "removed")	#find the posterior prob of negative
+	for line in content:
+			
+		post_pos = findposterior(line, "+", tr[k]) 	#find the posterior prob of positive 
+		post_neg = findposterior(line, "-", tr[k]) 	#find the posterior prob of negative
+		
 		if post_pos > post_neg:			#predict
 			prediction = 1
 		else: 
 			prediction = 0
-		actual = findclass(line)	
+		actual = findclass(line)
+
 		if  actual == 1 and prediction == 1:
 			tp += 1	
 		elif  actual == 0 and prediction == 0:

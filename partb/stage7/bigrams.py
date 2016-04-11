@@ -26,8 +26,3 @@ def create_bigrams(filename):
 		
 	infile.close()
 	vocab.close()
-
-#create_bigrams("removed")
-
-
-

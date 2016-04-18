@@ -1,10 +1,11 @@
 import learn_classifier
 import code_to_build_vocabulary
 import bigrams
-# divide the set into 10
-# using classnum, find the no. of reviews in pos and neg
+import re
+
 
 # function to find the actual class of a given test sentence
+
 def findclass(line):
 	if line[-2:-1] == "+":
 		return 1
@@ -12,6 +13,7 @@ def findclass(line):
 		return 0
 		
 #find the count of a particular word in a class
+
 def wordcount(filename,w1,w2,classname,bigram):
     wordnum = 0
     with open(filename) as datafile:
@@ -20,44 +22,88 @@ def wordcount(filename,w1,w2,classname,bigram):
                		words = line.split()
                		if(bigram == False):                       		
                        		for w in words:
-                   			if w == w1:
-		               			wordnum += 1
+		               		if w == w1:
+				        	wordnum += 1
                 	else:
                    		for i in range(len(words)-1):
                    			if w1==words[i] and w2 == words[i+1]:
                    				wordnum += 1	                              		               
     return wordnum
-    		
-def class_cond(filename,w1,w2,classname, vocfilename):
+    
+#find denominator for classcond.i.e sum of all features in class=clasname
+
+def findden(filename,classname,vocfilename):
+	bigram = 0
+	unigram = 0
+	
+	vocfile = open(vocfilename,"r")
+	
+	for line in vocfile:
+		
+		count = len(re.findall(r'\w+', line))
+		if(count==1):
+			
+    			if wordcount(filename,line,"",classname,False) > 0 :
+				unigram+=1
+		else:
+			
+			words = line.split()
+			if wordcount(filename,words[0],words[1],classname,True) > 0 :
+				bigram+=1
+				
+	return unigram + bigram
+			
+				
+#find unigram count of a word w. If a word is present in some bigram , its unigram count is reduced accordingly
+
+def unigramcount(filename,w,classname):
+	ucount = 0
+	bcount = 0
+	datafile = open(filename,"r")
+	for line in datafile:
+		count = len(re.findall(r'\w+', line))
+		if count==1 and w==line:
+			ucount=+1
+		elif count==2 and ( w == line[0] or w == line[1] ):
+			bcount+=1
+			
+	return ucount-bcount 
+
+   		
+def class_cond(filename,w1,w2,classname, vocfilename,den):
+    previousbigram=True			#previousbigram = True if the previous bigram was present in the vocabulary and False otherwise
     voc_num = learn_classifier.countwords(vocfilename)   
     num = wordcount(filename,w1,w2,classname,True)
-    #wordcountclass function is not used here.
+    
     word = w1
-    den = wordcount(filename,w1,w2,classname,False)
-    #print "bigram = "+bigram
-    #print "num = "+str(num)
     if num != 0:
+    	previousbigram = True
         cond_prob = float(num + 1)/ ( den + voc_num )
-    #else if the bigram is not present in the training set, then the corresponding unigram probabilities are found   
+    #else if the bigram is not present in the training set, then the corresponding unigram probabilities are found and multiplied  
     else:
-        voc_num = learn_classifier.countunigrams(vocfilename)   
-        num = wordcount(filename,w1,w2,classname,False)   
-        den = learn_classifier.wordcountclass(filename,classname)
-        cond_prob1 = float(num + 1)/ ( den + voc_num )
+    	previousbigram=False
+        voc_num = learn_classifier.countunigrams(vocfilename)     #calculate the total numbre of unigrams in the vocabulary file  
+        num = unigramcount(filename,w1,classname)	          #calculate the unigram count of the word w1 
+        den = learn_classifier.wordcountclass(filename,classname) #total number of words in class=classname
+        if(previousbigram==True):
+        	cond_prob1 = float(num + 1)/ ( den + voc_num )
+        else:
+        	cond_prob1 = 1		 
         num = learn_classifier.wordcount(filename,w2,classname,False)       
         cond_prob2 = float(num + 1)/ ( den + voc_num )
         cond_prob = cond_prob1 * cond_prob2
+   
     return cond_prob
 
-def findclasscond(line,category,filename):
+def findclasscond(line,category,filename,den):
 	words=line.split()
 	prob=1
 	for i in range(len(words)-1):
-		prob*= class_cond(filename,words[i], words[i+1],category,"new_vocab.txt")
+		prob*= class_cond(filename,words[i], words[i+1],category,"new_vocab.txt",den)
 	return prob
 
-def findposterior(line,category,filename):
-	classconditionalprob = findclasscond(line,category, filename)
+def findposterior(line,category,filename,den):
+	classconditionalprob = findclasscond(line,category, filename,den)
 	posterior = classconditionalprob * learn_classifier.class_prior(filename,category)
 	return posterior		
 			
@@ -133,7 +179,8 @@ for k in range(10):
 	# code to train "train.txt"
 	code_to_build_vocabulary.build_vocab(tr[k])	
 	#call create_bigrams
-	
+	posden = findden(tr[k],'+',"new_vocab.txt")
+	negden = findden(tr[k],'-',"new_vocab.txt")	
 
 	bigrams.create_bigrams(tr[k]) 		
 	learn_classifier.learn(tr[k], "new_vocab.txt") 
@@ -153,9 +200,9 @@ for k in range(10):
 	    content = f.readlines()
 
 	for line in content:
-			
-		post_pos = findposterior(line, "+", tr[k]) 	#find the posterior prob of positive 
-		post_neg = findposterior(line, "-", tr[k]) 	#find the posterior prob of negative
+		
+		post_pos = findposterior(line, "+", tr[k],posden) 	#find the posterior prob of positive 
+		post_neg = findposterior(line, "-", tr[k],negden) 	#find the posterior prob of negative
 		
 		if post_pos > post_neg:			#predict
 			prediction = 1

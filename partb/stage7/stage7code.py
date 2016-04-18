@@ -191,11 +191,6 @@ for k in range(10):
 	fp = 0
 	fn = 0
 
-	#contents = testset.read()
-	#lines = contents.split('\n')
-
-	#print len(lines)
-
 	with open(te[k]) as f: 
 	    content = f.readlines()
 

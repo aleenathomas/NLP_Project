@@ -15,7 +15,8 @@ def findclasscond(line,category,filename):
 	words=line.split()
 	prob=1
 	for word in words:
-		prob*= learn_classifier.class_cond(filename,word,category)
+		if word!="+" and word!="-":
+			prob*= learn_classifier.class_cond(filename,word,category)
 	return prob
 
 def findposterior(line,category,filename):
